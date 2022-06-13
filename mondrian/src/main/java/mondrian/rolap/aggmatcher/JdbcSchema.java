@@ -1304,7 +1304,7 @@ public class JdbcSchema {
                     RolapConnectionProperties.AggregateScanCatalog.name(),
                     getCatalogName());
 
-            String[] tableTypes = { "TABLE", "VIEW" };
+            String[] tableTypes = { "TABLE", "VIEW", "BASE TABLE" };
             if (databaseMetaData.getDatabaseProductName().toUpperCase().indexOf(
                     "VERTICA") >= 0)
             {
