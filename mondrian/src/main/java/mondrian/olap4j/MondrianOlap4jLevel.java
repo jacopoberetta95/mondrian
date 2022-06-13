@@ -32,7 +32,7 @@ import java.util.*;
  * @author jhyde
  * @since May 25, 2007
  */
-class MondrianOlap4jLevel
+public class MondrianOlap4jLevel
     extends MondrianOlap4jMetadataElement
     implements Level, Named
 {
