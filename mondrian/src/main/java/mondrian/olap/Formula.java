@@ -381,7 +381,7 @@ public class Formula extends QueryPart {
         return exp;
     }
 
-    private Exp getMemberProperty(String name) {
+    public Exp getMemberProperty(String name) {
         return MemberProperty.get(memberProperties, name);
     }
 
