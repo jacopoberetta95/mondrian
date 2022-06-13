@@ -133,7 +133,7 @@ public class MySqlDialect extends JdbcDialectImpl {
         if (sqlmode == null) {
             supported = true;
         } else {
-            if (!sqlmode.contains("ONLY_FULL_GROUP_BY")) {
+            if (!(sqlmode.contains("ONLY_FULL_GROUP_BY") || sqlmode.contains("STRICT_TRANS_TABLES"))) {
                 supported = true;
             }
         }
