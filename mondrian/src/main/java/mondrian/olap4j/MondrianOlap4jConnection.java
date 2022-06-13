@@ -825,6 +825,13 @@ public abstract class MondrianOlap4jConnection implements OlapConnection {
             exception.setContext(context);
             return exception;
         }
+        
+        OlapException createException(Cell context, String msg, boolean sendMessage) {
+//        	OlapException exception = new OlapException(msg, sendMessage);
+            OlapException exception = new OlapException(msg);
+            exception.setContext(context);
+            return exception;
+        }
 
         /**
          * Creates an exception in the context of a particular Cell and with
