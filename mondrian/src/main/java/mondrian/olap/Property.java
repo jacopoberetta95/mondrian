@@ -728,6 +728,21 @@ public class Property extends EnumeratedValues.BasicValue {
             Arrays.asList(
                 "format", "format_string", "FORMAT", FORMAT_STRING.name));
 
+    /**
+     * Jacopo.beretta 20211129
+     * Custom depth of Member
+     */
+    public static final int CUSTOM_DEPTH_ORDINAL = 56;
+    /**
+     * Definition of the property which
+     * holds the custom depth of a member.
+     */
+    public static final Property CUSTOM_DEPTH =
+        new Property(
+            "CUSTOM_DEPTH", Datatype.TYPE_NUMERIC, CUSTOM_DEPTH_ORDINAL, false, true, false,
+            "The custom depth of a member");
+    
+    
     // ~ Data members ---------------------------------------------------------
 
     /**
