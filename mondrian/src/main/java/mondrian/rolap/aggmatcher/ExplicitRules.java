@@ -928,9 +928,8 @@ public class ExplicitRules {
                             false,
                             Category.Member);
                         if (member == null) {
-                            if (!(names.get(0) instanceof Id.NameSegment
-                                    && ((Id.NameSegment) names.get(0)).name
-                                        .equals("Measures")))
+                        	if (!(names.get(0) instanceof Id.NameSegment
+                                    && (((Id.NameSegment) names.get(0)).name.equals("Measures") || ((Id.NameSegment) names.get(0)).name.equals("[Measures]"))))
                             {
                                 msgRecorder.reportError(
                                     mres.BadMeasures.str(
