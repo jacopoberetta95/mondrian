@@ -97,7 +97,7 @@ class MondrianOlap4jCell implements Cell {
             return number.doubleValue();
         }
         throw olap4jCellSet.olap4jStatement.olap4jConnection.helper
-            .createException(this, "not a number");
+            .createException(this, "not a number", false);
     }
 
     public String getErrorText() {
