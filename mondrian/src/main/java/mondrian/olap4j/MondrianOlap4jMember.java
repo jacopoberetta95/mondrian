@@ -87,6 +87,50 @@ class MondrianOlap4jMember
                 return ((MondrianOlap4jMember)member).getName();
             }
 
+            //jacopo.beretta
+            public String getKey(Object member) {
+                return ((MondrianOlap4jMember)member).getKey();
+            }
+
+            public MondrianOlap4jMember get(int index) {
+                return new MondrianOlap4jMember(
+                    olap4jSchema, children.get(index));
+            }
+
+            public int size() {
+                return children.size();
+            }
+        };
+    }
+    
+    public NamedList<MondrianOlap4jMember> getChildMembersSorted()
+            throws OlapException
+        {
+        final RolapConnection conn =
+            olap4jSchema.olap4jCatalog.olap4jDatabaseMetaData
+                .olap4jConnection.getMondrianConnection();
+        final List<mondrian.olap.Member> children =
+            Locus.execute(
+                conn,
+                "MondrianOlap4jMember.getChildMembers",
+                new Locus.Action<List<mondrian.olap.Member>>() {
+                    public List<mondrian.olap.Member> execute() {
+                        return
+                            conn.getSchemaReader()
+                                .getMemberChildren(member);
+                    }
+                });
+        
+        return new AbstractNamedList<MondrianOlap4jMember>() {
+            public String getName(Object member) {
+                return ((MondrianOlap4jMember)member).getName();
+            }
+
+            //jacopo.beretta
+            public String getKey(Object member) {
+                return ((MondrianOlap4jMember)member).getKey();
+            }
+
             public MondrianOlap4jMember get(int index) {
                 return new MondrianOlap4jMember(
                     olap4jSchema, children.get(index));
@@ -98,6 +142,15 @@ class MondrianOlap4jMember
         };
     }
 
+	public List<MondrianOlap4jMember> getDescendants() throws OlapException {
+        List<MondrianOlap4jMember> descendants = new ArrayList<>();
+        for (MondrianOlap4jMember child : getChildMembersSorted()) {
+            descendants.add(child);
+            descendants.addAll(child.getDescendants());
+        }
+        return descendants;
+    }
+    
     public int getChildMemberCount() throws OlapException {
         final RolapConnection conn =
             olap4jSchema.olap4jCatalog.olap4jDatabaseMetaData
@@ -254,9 +307,13 @@ class MondrianOlap4jMember
             mondrian.olap.Property.VISIBLE.getName());
     }
 
-    protected OlapElement getOlapElement() {
+    public OlapElement getOlapElement() {
         return member;
     }
+
+	public String getKey() {
+        return String.valueOf(member.getPropertyValue(mondrian.olap.Property.MEMBER_KEY.name));
+	}
 }
 
 // End MondrianOlap4jMember.java
